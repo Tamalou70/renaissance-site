@@ -1,0 +1,319 @@
+:root {
+  --nuit: #07040f;
+  --nuit-2: #110a22;
+  --verre: rgba(28, 14, 52, 0.62);
+  --verre-bord: rgba(190, 140, 255, 0.22);
+  --violet: #8d3dff;
+  --violet-clair: #c592ff;
+  --or: #f3c66b;
+  --or-fonce: #b9822c;
+  --texte: #efe8ff;
+  --texte-doux: #b3a4d4;
+  --bleu: #4aa3ff;
+  --rouge: #ff4d5e;
+  --titre: 'Cinzel', Georgia, serif;
+  --corps: 'Inter', 'Segoe UI', system-ui, sans-serif;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--nuit);
+  color: var(--texte);
+  font-family: var(--corps);
+  font-size: 16px;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+body.verrouille { overflow: hidden; }
+img { max-width: 100%; display: block; }
+a { color: inherit; }
+.visuellement-cache { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* ---------- écran d'accueil ---------- */
+.accueil {
+  position: fixed; inset: 0; z-index: 50;
+  display: grid; place-items: center; align-content: center; gap: 18px;
+  transition: opacity .9s ease, visibility .9s;
+}
+.accueil-fond {
+  position: absolute; inset: -40px;
+  background: url(images/affiche.webp) center 55% / cover;
+  filter: blur(28px) brightness(.45) saturate(1.2);
+}
+.accueil.ouvert { opacity: 0; visibility: hidden; }
+.decouvrir {
+  position: relative;
+  font: 700 clamp(26px, 4vw, 40px) / 1 var(--titre);
+  letter-spacing: .12em; text-transform: uppercase;
+  color: #fff; background: none; border: 0; cursor: pointer; padding: 18px 30px;
+  text-shadow: 0 0 24px rgba(197, 146, 255, .9), 0 0 2px #fff;
+  animation: respire 2.6s ease-in-out infinite;
+}
+.decouvrir:focus-visible { outline: 2px solid var(--violet-clair); outline-offset: 6px; border-radius: 8px; }
+.accueil-note { position: relative; margin: 0; color: var(--texte-doux); font-size: 13px; letter-spacing: .04em; }
+@keyframes respire { 50% { opacity: .65; transform: scale(.98); } }
+
+/* ---------- son ---------- */
+.son {
+  position: fixed; top: 14px; left: 14px; z-index: 40;
+  width: 40px; height: 40px; border-radius: 50%;
+  display: grid; place-items: center;
+  background: rgba(10, 6, 20, .45); border: 1px solid var(--verre-bord); color: #fff; cursor: pointer;
+  backdrop-filter: blur(8px);
+}
+.son svg { width: 20px; height: 20px; fill: currentColor; }
+.son .son-off, .son.coupe .son-on { display: none; }
+.son.coupe .son-off { display: block; }
+
+/* ---------- barre ---------- */
+.barre {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 30;
+  display: flex; align-items: center; gap: 24px;
+  padding: 10px 24px 10px 70px;
+  background: linear-gradient(rgba(7, 4, 15, .85), rgba(7, 4, 15, 0));
+  transform: translateY(-100%); transition: transform .4s ease;
+}
+.barre.visible { transform: none; background: rgba(7, 4, 15, .78); backdrop-filter: blur(12px); border-bottom: 1px solid var(--verre-bord); }
+.barre-logo img { height: 40px; width: auto; }
+.barre-liens { display: flex; gap: 22px; margin-left: auto; }
+.barre-liens a { text-decoration: none; font-size: 14px; color: var(--texte-doux); letter-spacing: .04em; }
+.barre-liens a:hover { color: #fff; }
+.barre-discord {
+  text-decoration: none; font-weight: 600; font-size: 14px;
+  padding: 8px 16px; border-radius: 999px;
+  background: linear-gradient(135deg, var(--violet), #5b2bd6); color: #fff;
+  box-shadow: 0 0 18px rgba(141, 61, 255, .45);
+}
+
+/* ---------- héros ---------- */
+.heros {
+  position: relative; min-height: 100svh;
+  display: grid; place-items: center; overflow: hidden; isolation: isolate;
+}
+/* L'affiche (carrée) couvre le héros comme un « cover », mais dans une boîte carrée :
+   le voile qui cache son logo imprimé reste ainsi calé sur l'affiche, quel que soit l'écran. */
+.heros-fond {
+  position: absolute; z-index: -3; left: 50%; top: 50%;
+  width: max(100%, 100svh); aspect-ratio: 1; translate: -50% -50%;
+  background: url(images/affiche.webp) center / cover;
+  filter: blur(6px) brightness(.55) saturate(1.15);
+  animation: approche 30s ease-in-out infinite alternate;
+}
+.heros-fond::after {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(ellipse 47% 36% at 50% 58%, rgba(7, 4, 15, .96) 45%, rgba(7, 4, 15, .7) 72%, transparent 100%);
+}
+.heros::after {
+  content: ''; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  background: linear-gradient(rgba(7, 4, 15, .3), transparent 30%, transparent 65%, var(--nuit));
+}
+@keyframes approche { to { transform: scale(1.07); } }
+.pluie, .eclair, .flash { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: -2; }
+.flash { background: radial-gradient(ellipse at 70% 10%, rgba(214, 180, 255, .55), transparent 60%); opacity: 0; }
+.eclair { z-index: -1; }
+.heros-contenu { text-align: center; padding: 90px 16px 120px; }
+.heros-logo {
+  width: min(880px, 94vw); height: auto; margin: 0 auto;
+  filter: drop-shadow(0 0 30px rgba(141, 61, 255, .55)) drop-shadow(0 12px 30px rgba(0, 0, 0, .6));
+  animation: flotte 7s ease-in-out infinite;
+}
+@keyframes flotte { 50% { transform: translateY(-10px); filter: drop-shadow(0 0 46px rgba(170, 90, 255, .75)) drop-shadow(0 18px 30px rgba(0, 0, 0, .55)); } }
+.heros-devise {
+  margin: 8px 0 0; font: 500 clamp(14px, 2vw, 19px) / 1.4 var(--titre);
+  letter-spacing: .35em; text-transform: uppercase; color: var(--or);
+  text-shadow: 0 0 18px rgba(243, 198, 107, .45);
+}
+.defiler {
+  position: absolute; bottom: 28px; left: 50%; translate: -50% 0;
+  width: 26px; height: 42px; border: 2px solid rgba(255, 255, 255, .55); border-radius: 14px;
+}
+.defiler span { position: absolute; left: 50%; top: 8px; width: 4px; height: 8px; margin-left: -2px; border-radius: 2px; background: #fff; animation: molette 1.8s infinite; }
+@keyframes molette { 70% { transform: translateY(12px); opacity: 0; } 100% { opacity: 0; } }
+
+/* ---------- carte de liens ---------- */
+.carte-zone { position: relative; padding: 0 16px 90px; margin-top: -70px; z-index: 2; }
+.carte {
+  max-width: 560px; margin: 0 auto; padding: 22px;
+  background: var(--verre); border: 1px solid var(--verre-bord); border-radius: 18px;
+  backdrop-filter: blur(18px) saturate(1.3);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, .55), 0 0 60px rgba(141, 61, 255, .18) inset;
+}
+.carte-tete { display: flex; align-items: center; gap: 16px; }
+.avatar {
+  flex: none; width: 74px; height: 74px; border-radius: 50%;
+  background: #1a0d33 url(images/logo-petit.webp) 50% 12% / 340% no-repeat;
+  border: 2px solid rgba(243, 198, 107, .6);
+  box-shadow: 0 0 22px rgba(141, 61, 255, .55);
+}
+.carte-titre {
+  margin: 0; font: 900 clamp(20px, 3.2vw, 26px) / 1.15 var(--titre); letter-spacing: .03em;
+  text-shadow: 0 0 16px rgba(197, 146, 255, .7);
+}
+.carte-sous { margin: 4px 0 0; font-size: 13px; color: var(--texte-doux); }
+.carte-texte { margin: 16px 0 18px; font-size: 15px; }
+.liens { display: grid; gap: 10px; }
+.lien {
+  display: flex; align-items: center; gap: 14px; text-decoration: none;
+  padding: 12px 14px; border-radius: 12px;
+  background: rgba(255, 255, 255, .045); border: 1px solid rgba(255, 255, 255, .09);
+  transition: background .2s, border-color .2s, transform .2s;
+}
+.lien:hover { background: rgba(141, 61, 255, .16); border-color: rgba(197, 146, 255, .45); transform: translateY(-1px); }
+.lien.bientot, .barre-discord.bientot { opacity: .55; pointer-events: none; }
+.lien[hidden] { display: none; }
+.lien-icone { flex: none; width: 36px; height: 36px; border-radius: 9px; display: grid; place-items: center; background: rgba(255, 255, 255, .08); }
+.lien-icone svg { width: 20px; height: 20px; fill: currentColor; }
+.lien-icone.discord { color: #8c9eff; }
+.lien-icone.cristal { color: var(--violet-clair); }
+.lien-icone.livre { color: var(--or); }
+.lien-icone.instagram { color: #ff6fae; }
+.lien-icone.tiktok { color: #fff; }
+.lien-texte { display: grid; line-height: 1.25; }
+.lien-texte strong { font-weight: 600; letter-spacing: .02em; text-transform: uppercase; font-size: 14px; }
+.lien-texte small { color: var(--texte-doux); font-size: 12.5px; }
+.lien-fleche { margin-left: auto; color: var(--texte-doux); }
+
+/* ---------- titres de section ---------- */
+section { position: relative; }
+.titre-section { text-align: center; max-width: 760px; margin: 0 auto 56px; padding: 0 16px; }
+.surtitre { margin: 0 0 8px; font-size: 12.5px; font-weight: 600; letter-spacing: .3em; text-transform: uppercase; color: var(--violet-clair); }
+.titre-section h2, .bd-texte h2 {
+  margin: 0; font: 900 clamp(30px, 5vw, 52px) / 1.1 var(--titre);
+  background: linear-gradient(180deg, #fff3cf 0%, var(--or) 45%, var(--or-fonce) 100%);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+  filter: drop-shadow(0 0 22px rgba(243, 198, 107, .25));
+}
+.chapeau { margin: 14px 0 0; color: var(--texte-doux); font-size: 17px; font-style: italic; }
+
+/* ---------- lore ---------- */
+.lore { padding: 60px 16px 40px; background: radial-gradient(ellipse at 50% 0%, rgba(141, 61, 255, .14), transparent 60%); }
+.frise { list-style: none; margin: 0 auto; padding: 0; max-width: 1100px; position: relative; }
+.frise::before {
+  content: ''; position: absolute; left: 50%; top: 0; bottom: 0; width: 2px; translate: -1px 0;
+  background: linear-gradient(transparent, var(--violet) 8%, var(--violet) 92%, transparent);
+  box-shadow: 0 0 14px var(--violet);
+}
+.etape { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; margin-bottom: 80px; position: relative; }
+.etape::after {
+  content: ''; position: absolute; left: 50%; top: 50%; width: 16px; height: 16px; translate: -50% -50%; rotate: 45deg;
+  background: var(--violet-clair); box-shadow: 0 0 18px var(--violet), 0 0 4px #fff;
+}
+.etape:nth-child(even) figure { order: 2; }
+.etape figure { margin: 0; border-radius: 14px; overflow: hidden; border: 1px solid var(--verre-bord); box-shadow: 0 20px 50px rgba(0, 0, 0, .5); }
+.etape figure img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; transition: transform .8s ease; }
+.etape:hover figure img { transform: scale(1.04); }
+.date { margin: 0 0 6px; font-weight: 600; color: var(--or); letter-spacing: .12em; text-transform: uppercase; font-size: 13px; }
+.etape h3, .cote h3, .eveilles h3 { margin: 0 0 12px; font: 700 clamp(24px, 3vw, 32px) / 1.15 var(--titre); }
+.etape p, .cote p, .eveilles p { margin: 0 0 12px; color: #d9cff0; }
+em { color: var(--violet-clair); font-style: normal; font-weight: 600; }
+
+.deux-cotes { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; max-width: 1100px; margin: 20px auto 24px; }
+.cote { border-radius: 16px; overflow: hidden; background: var(--nuit-2); border: 1px solid var(--verre-bord); display: flex; flex-direction: column; }
+.cote img { aspect-ratio: 16 / 9; object-fit: cover; width: 100%; }
+.cote-texte { padding: 22px 24px 24px; }
+.cote.sud { box-shadow: 0 0 40px rgba(255, 77, 180, .12); }
+.cote.nord { box-shadow: 0 0 40px rgba(74, 163, 255, .1); }
+.cote.sud .surtitre { color: #ff7ac8; }
+.cote.nord .surtitre { color: #8cc6ff; }
+.cote-note { font-family: var(--titre); font-weight: 700; color: var(--or) !important; letter-spacing: .05em; }
+
+.eveilles {
+  max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1.1fr 1fr; align-items: stretch;
+  border-radius: 16px; overflow: hidden; border: 1px solid rgba(197, 146, 255, .4);
+  background: linear-gradient(135deg, rgba(141, 61, 255, .22), rgba(17, 10, 34, .9));
+  box-shadow: 0 0 60px rgba(141, 61, 255, .25);
+}
+.eveilles img { width: 100%; height: 100%; object-fit: cover; min-height: 300px; }
+.eveilles-texte { padding: 34px; align-self: center; }
+
+/* ---------- trois avenirs ---------- */
+.avenirs { padding: 100px 16px 60px; }
+.trois { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; max-width: 1100px; margin: 0 auto; }
+.avenir {
+  --c: var(--violet-clair);
+  border-radius: 16px; overflow: hidden; background: var(--nuit-2);
+  border: 1px solid color-mix(in srgb, var(--c) 45%, transparent);
+  box-shadow: 0 0 40px color-mix(in srgb, var(--c) 18%, transparent);
+  transition: transform .3s ease, box-shadow .3s ease;
+}
+.avenir:hover { transform: translateY(-6px); box-shadow: 0 0 60px color-mix(in srgb, var(--c) 35%, transparent); }
+.avenir.bleu { --c: var(--bleu); }
+.avenir.rouge { --c: var(--rouge); }
+.avenir img { aspect-ratio: 3 / 4; object-fit: cover; width: 100%; }
+.avenir h3 { margin: 18px 20px 8px; font: 700 22px / 1.2 var(--titre); color: var(--c); text-shadow: 0 0 14px color-mix(in srgb, var(--c) 60%, transparent); }
+.avenir p { margin: 0 20px 22px; color: #d9cff0; font-size: 15px; }
+
+/* ---------- la ville ---------- */
+.ville { padding: 100px 16px 60px; background: radial-gradient(ellipse at 50% 100%, rgba(243, 198, 107, .07), transparent 60%); }
+.grille { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; max-width: 1100px; margin: 0 auto; }
+.atout {
+  padding: 26px 24px; border-radius: 14px;
+  background: rgba(255, 255, 255, .035); border: 1px solid rgba(255, 255, 255, .08);
+  transition: border-color .25s, background .25s;
+}
+.atout:hover { border-color: rgba(197, 146, 255, .4); background: rgba(141, 61, 255, .08); }
+.atout-icone {
+  display: inline-grid; place-items: center; width: 44px; height: 44px; border-radius: 12px;
+  font-size: 22px; color: var(--or); background: rgba(243, 198, 107, .1); border: 1px solid rgba(243, 198, 107, .3);
+}
+.atout h3 { margin: 14px 0 6px; font: 700 20px / 1.2 var(--titre); }
+.atout p { margin: 0; color: var(--texte-doux); font-size: 15px; }
+
+/* ---------- BD ---------- */
+.bd { padding: 80px 16px 110px; }
+.bd-cadre {
+  max-width: 1100px; margin: 0 auto; position: relative; border-radius: 20px; overflow: hidden;
+  border: 1px solid var(--verre-bord); min-height: 420px; display: grid; align-items: end;
+}
+.bd-cadre img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.bd-cadre::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(7, 4, 15, .92) 0%, rgba(7, 4, 15, .65) 45%, transparent 80%); }
+.bd-texte { position: relative; z-index: 1; padding: 44px; max-width: 560px; }
+.bd-texte p { color: #d9cff0; }
+.bouton {
+  display: inline-block; margin-top: 10px; padding: 14px 28px; border-radius: 999px; text-decoration: none;
+  font: 700 15px / 1 var(--titre); letter-spacing: .1em; text-transform: uppercase; color: #1a0d33;
+  background: linear-gradient(180deg, #fff1c4, var(--or) 50%, var(--or-fonce));
+  box-shadow: 0 0 26px rgba(243, 198, 107, .45);
+  transition: transform .2s, box-shadow .2s;
+}
+.bouton:hover { transform: translateY(-2px); box-shadow: 0 0 40px rgba(243, 198, 107, .7); }
+
+/* ---------- pied ---------- */
+.pied { text-align: center; padding: 50px 16px 60px; border-top: 1px solid var(--verre-bord); background: #05030b; }
+.pied img { margin: 0 auto 10px; width: 200px; height: auto; }
+.pied-devise { margin: 0 0 6px; font: 700 18px / 1.3 var(--titre); color: var(--or); }
+.pied-mentions { margin: 0; font-size: 12.5px; color: #7d70a0; }
+
+/* braises : par-dessus tout, sans gêner les clics */
+.braises { position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 20; }
+
+/* apparition au défilement */
+.revele { opacity: 0; transform: translateY(28px); transition: opacity .9s ease, transform .9s ease; }
+.revele.vu { opacity: 1; transform: none; }
+
+/* ---------- petits écrans ---------- */
+@media (max-width: 860px) {
+  .barre { padding: 8px 14px 8px 64px; }
+  .barre-liens { display: none; }
+  .barre-discord { margin-left: auto; }
+  .frise::before { left: 14px; }
+  .etape { grid-template-columns: 1fr; gap: 18px; padding-left: 40px; margin-bottom: 56px; }
+  .etape::after { left: 14px; top: 20px; }
+  .etape:nth-child(even) figure { order: 0; }
+  .deux-cotes, .trois, .grille, .eveilles { grid-template-columns: 1fr; }
+  .eveilles-texte { padding: 24px; }
+  .avenir img { aspect-ratio: 16 / 10; }
+  .bd-cadre::after { background: linear-gradient(0deg, rgba(7, 4, 15, .95) 15%, rgba(7, 4, 15, .5) 60%, transparent); }
+  .bd-texte { padding: 28px 22px; }
+}
+@media (max-width: 420px) {
+  .carte { padding: 18px 16px; }
+  .avatar { width: 60px; height: 60px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  .revele { opacity: 1; transform: none; }
+}

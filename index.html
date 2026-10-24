@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Renaissance Roleplay</title>
+<meta name="description" content="Renaissance Roleplay : serveur FiveM francophone. Une pierre tombée du ciel en 1945, un mur qui coupe la ville en deux, des Éveillés aux pouvoirs inconnus. Plus qu'un jeu, une seconde vie.">
+<meta property="og:title" content="Renaissance Roleplay — L'Ordre des Arcanes">
+<meta property="og:description" content="Plus qu'un jeu, une seconde vie. Serveur FiveM francophone.">
+<meta property="og:image" content="images/affiche.webp">
+<meta name="theme-color" content="#0a0614">
+<link rel="icon" href="images/logo-petit.webp">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="verrouille">
+
+<!-- Écran d'accueil : l'affiche floutée, un clic pour entrer (et lancer l'ambiance sonore) -->
+<div id="accueil" class="accueil" role="dialog" aria-label="Entrer sur le site">
+  <div class="accueil-fond"></div>
+  <button id="decouvrir" class="decouvrir" type="button">Découvrir</button>
+  <p class="accueil-note">Ambiance sonore : pluie et orage</p>
+</div>
+
+<button id="son" class="son" type="button" aria-label="Couper le son" title="Couper le son">
+  <svg class="son-on" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+  <svg class="son-off" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M17 9l5 6M22 9l-5 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+</button>
+
+<header class="barre" id="barre">
+  <a class="barre-logo" href="#haut" aria-label="Retour en haut"><img src="images/logo-petit.webp" alt="Renaissance"></a>
+  <nav class="barre-liens">
+    <a href="#lore">Le lore</a>
+    <a href="#avenirs">Trois avenirs</a>
+    <a href="#ville">La ville</a>
+    <a href="#bd">La BD</a>
+  </nav>
+  <a class="barre-discord" data-lien="discord" href="#">Discord</a>
+</header>
+
+<main id="haut">
+
+  <!-- Héros : affiche, pluie, braises, éclairs, logo -->
+  <section class="heros">
+    <div class="heros-fond"></div>
+    <canvas id="pluie" class="pluie" aria-hidden="true"></canvas>
+    <svg id="eclair" class="eclair" aria-hidden="true"></svg>
+    <div class="flash" id="flash" aria-hidden="true"></div>
+    <div class="heros-contenu">
+      <h1 class="visuellement-cache">Renaissance Roleplay — L'Ordre des Arcanes</h1>
+      <img class="heros-logo" src="images/logo.webp" alt="Renaissance — L'Ordre des Arcanes" width="1536" height="1024">
+      <p class="heros-devise">Plus qu'un jeu, une seconde vie</p>
+    </div>
+    <a class="defiler" href="#carte" aria-label="Défiler vers le bas"><span></span></a>
+  </section>
+
+  <!-- Carte de liens, comme une page « lien unique » -->
+  <section class="carte-zone" id="carte">
+    <article class="carte">
+      <div class="carte-tete">
+        <div class="avatar" aria-hidden="true"></div>
+        <div>
+          <h2 class="carte-titre">Renaissance Roleplay</h2>
+          <p class="carte-sous">Serveur FiveM francophone · L'Ordre des Arcanes</p>
+        </div>
+      </div>
+      <p class="carte-texte">
+        En 1945, une pierre violette est tombée du ciel. Depuis, la ville vit coupée en deux par un mur,
+        des gens disparaissent et certains s'éveillent avec des pouvoirs que personne n'explique.
+        Ici, chaque histoire compte : la tienne commence au Sud du Mur.
+      </p>
+      <div class="liens">
+        <a class="lien" data-lien="discord" href="#">
+          <span class="lien-icone discord"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.5 5.6A16.5 16.5 0 0 0 15.4 4.3l-.5 1a15 15 0 0 0-5.8 0l-.5-1a16.5 16.5 0 0 0-4.1 1.3C1.9 9.5 1.2 13.3 1.5 17a16.6 16.6 0 0 0 5 2.6l1.1-1.7a10.7 10.7 0 0 1-1.7-.8l.4-.3a11.8 11.8 0 0 0 11.4 0l.4.3a10.7 10.7 0 0 1-1.7.8l1.1 1.7a16.6 16.6 0 0 0 5-2.6c.4-4.3-.7-8.1-3-11.4zM8.7 14.7c-1 0-1.9-1-1.9-2.2s.8-2.2 1.9-2.2 1.9 1 1.9 2.2-.9 2.2-1.9 2.2zm6.6 0c-1 0-1.9-1-1.9-2.2s.8-2.2 1.9-2.2 1.9 1 1.9 2.2-.8 2.2-1.9 2.2z"/></svg></span>
+          <span class="lien-texte"><strong>Discord</strong><small data-detail="discord">discord.gg</small></span>
+          <span class="lien-fleche" aria-hidden="true">↗</span>
+        </a>
+        <a class="lien" href="#lore">
+          <span class="lien-icone cristal"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l5 7-5 13-5-13z"/><path d="M7 9h10" stroke="#fff" stroke-opacity=".5" stroke-width="1"/></svg></span>
+          <span class="lien-texte"><strong>Le lore</strong><small>L'Héritage du 38ème Parallèle</small></span>
+          <span class="lien-fleche" aria-hidden="true">↓</span>
+        </a>
+        <a class="lien" data-lien="bd" href="#" target="_blank" rel="noopener">
+          <span class="lien-icone livre"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 4h8v16H3zM13 4h8v7h-8zM13 13h8v7h-8z"/></svg></span>
+          <span class="lien-texte"><strong>Lire la BD</strong><small>10 planches, voix françaises</small></span>
+          <span class="lien-fleche" aria-hidden="true">↗</span>
+        </a>
+        <a class="lien" data-lien="instagram" href="#" target="_blank" rel="noopener">
+          <span class="lien-icone instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17.5" cy="6.5" r="1.3"/></svg></span>
+          <span class="lien-texte"><strong>Instagram</strong><small>instagram.com</small></span>
+          <span class="lien-fleche" aria-hidden="true">↗</span>
+        </a>
+        <a class="lien" data-lien="tiktok" href="#" target="_blank" rel="noopener">
+          <span class="lien-icone tiktok"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3h3a4.5 4.5 0 0 0 4 4v3a7.5 7.5 0 0 1-4-1.2V15a6 6 0 1 1-6-6v3.2A2.8 2.8 0 1 0 14 15z"/></svg></span>
+          <span class="lien-texte"><strong>TikTok</strong><small>tiktok.com</small></span>
+          <span class="lien-fleche" aria-hidden="true">↗</span>
+        </a>
+      </div>
+    </article>
+  </section>
+
+  <!-- Le lore, d'après la BD -->
+  <section class="lore" id="lore">
+    <header class="titre-section revele">
+      <p class="surtitre">Le lore</p>
+      <h2>L'Héritage du 38ème Parallèle</h2>
+      <p class="chapeau">La paix venait de revenir. Quelque chose d'autre allait arriver.</p>
+    </header>
+
+    <ol class="frise">
+      <li class="etape revele">
+        <figure><img src="images/lore/impact.webp" alt="Une météorite incandescente s'écrase dans les montagnes de Blaine County dans une explosion violette." loading="lazy"></figure>
+        <div class="etape-texte">
+          <p class="date">2 septembre 1945</p>
+          <h3>La pierre du ciel</h3>
+          <p>Le monde fête la fin de la guerre. À 23 h 12, un objet céleste s'écrase dans les montagnes de Blaine County.
+            Au fond du cratère, des pierres d'un violet éblouissant. L'armée arrive avant les secours et boucle le site :
+            il devient le <em>Projet Renaissance</em>.</p>
+        </div>
+      </li>
+      <li class="etape revele">
+        <figure><img src="images/lore/p02-01.webp" alt="Ouvriers et militaires construisent un bunker dans la montagne." loading="lazy"></figure>
+        <div class="etape-texte">
+          <p class="date">1962 – 1978</p>
+          <h3>Le Bunker 68</h3>
+          <p>Sous la montagne, un complexe militaire secret étudie la pierre. Dans des orphelinats financés par l'État,
+            les « Enfants de la Lune » servent de cobayes. Ceux qui ne survivent pas disparaissent des registres.</p>
+        </div>
+      </li>
+      <li class="etape revele">
+        <figure><img src="images/lore/p03-04.webp" alt="Une vieille photographie montre des hommes qui n'ont pas vieilli." loading="lazy"></figure>
+        <div class="etape-texte">
+          <p class="date">1995</p>
+          <h3>Le Directoire</h3>
+          <p>L'élite de la ville tire du sang des personnes touchées par la pierre le <em>Sérum V-45</em>.
+            Le Directoire 1945, mené par Stan Cooper, ne vieillit plus et ne lâche plus le pouvoir.
+            Ses autres membres restent dans l'ombre.</p>
+        </div>
+      </li>
+      <li class="etape revele">
+        <figure><img src="images/lore/p04-03.webp" alt="Des soldats gardent un barrage devant un immense mur de béton." loading="lazy"></figure>
+        <div class="etape-texte">
+          <p class="date">2021 – 2022</p>
+          <h3>La fracture</h3>
+          <p>Un séisme de magnitude 6,8 réveille la faille du cratère. Une impulsion plonge la région quatorze heures
+            dans le noir. En deux mois, un mur de béton coupe le comté en deux.
+            Version officielle : une quarantaine biologique. Personne n'y croit vraiment.</p>
+        </div>
+      </li>
+    </ol>
+
+    <div class="deux-cotes">
+      <article class="cote sud revele">
+        <img src="images/lore/p05-01.webp" alt="Une avenue du Sud sous les néons roses et bleus." loading="lazy">
+        <div class="cote-texte">
+          <p class="surtitre">Au sud du Mur</p>
+          <h3>Le Sud</h3>
+          <p>Néons, commerces, voitures de luxe : l'illusion du rêve américain. Mais le LSPD traque en secret les
+            comportements « anormaux », et la nuit, la radio capte des fréquences fantômes.</p>
+          <p class="cote-note">C'est ici que tout se joue.</p>
+        </div>
+      </article>
+      <article class="cote nord revele">
+        <img src="images/lore/p06-01.webp" alt="Des explorateurs en combinaison avancent dans une zone en ruine." loading="lazy">
+        <div class="cote-texte">
+          <p class="surtitre">Au nord du Mur</p>
+          <h3>Le Nord</h3>
+          <p>La terre abandonnée. Pas de flics, pas de lois. Sans combinaison, personne n'ose s'y aventurer.
+            Les murs sont couverts de portraits de disparus, et le cratère dégage un froid qui n'a rien de naturel.</p>
+          <p class="cote-note">Zone interdite.</p>
+        </div>
+      </article>
+    </div>
+
+    <article class="eveilles revele">
+      <img src="images/lore/p07-02.webp" alt="Une femme au blouson rouge fait léviter des objets entourés d'énergie violette." loading="lazy">
+      <div class="eveilles-texte">
+        <p class="surtitre">L'anomalie</p>
+        <h3>Les Éveillés</h3>
+        <p>Chez certains, la pierre de 1945 a réveillé des capacités hors du commun : télékinésie, résistance,
+          perception… et d'autres encore inconnues. Un don pour les uns, une expérience pour d'autres,
+          une menace pour le Directoire.</p>
+        <p>Les pouvoirs sont rares : un seul de tes personnages peut en porter un.</p>
+      </div>
+    </article>
+  </section>
+
+  <!-- Les trois avenirs (épilogue de la BD) -->
+  <section class="avenirs" id="avenirs">
+    <header class="titre-section revele">
+      <p class="surtitre">Épilogue · La prise de pouvoir</p>
+      <h2>Trois avenirs</h2>
+      <p class="chapeau">Le Dossier Noir est entre vos mains. Les joueurs décideront de l'avenir du serveur.</p>
+    </header>
+    <div class="trois">
+      <article class="avenir bleu revele">
+        <img src="images/lore/p10-02.webp" alt="Le Mur s'effondre, une foule traverse la brèche." loading="lazy">
+        <h3>Les Révélateurs</h3>
+        <p>Tout révéler. Le Mur s'effondre, le gouvernement tombe : la saison 2 s'ouvre sur une guerre civile.</p>
+      </article>
+      <article class="avenir rouge revele">
+        <img src="images/lore/p10-03.webp" alt="Un homme en costume tient le dossier noir au-dessus de la ville." loading="lazy">
+        <h3>Les Maîtres de l'ombre</h3>
+        <p>Tout contrôler. Le chantage sur le Directoire donne le monopole des territoires et du marché noir.</p>
+      </article>
+      <article class="avenir violet revele">
+        <img src="images/lore/p10-04.webp" alt="Une femme regarde un immense cristal violet en lévitation." loading="lazy">
+        <h3>Les Éveillés</h3>
+        <p>Tout éveiller. Les artefacts libèrent l'anomalie. De grands pouvoirs, de grandes responsabilités.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- La ville : ce qu'on y fait -->
+  <section class="ville" id="ville">
+    <header class="titre-section revele">
+      <p class="surtitre">Le serveur</p>
+      <h2>La ville</h2>
+      <p class="chapeau">Los Santos, au sud du Mur. Une ville vivante, faite par et pour ses habitants.</p>
+    </header>
+    <div class="grille">
+      <article class="atout revele">
+        <span class="atout-icone">✦</span>
+        <h3>Les pouvoirs</h3>
+        <p>Le feu des Éveillés en trois niveaux pour commencer. Un pouvoir par joueur, rare et convoité.</p>
+      </article>
+      <article class="atout revele">
+        <span class="atout-icone">⚖</span>
+        <h3>Les métiers</h3>
+        <p>Police, ambulanciers, mécaniciens du Benny's et de LS Tuners, concessionnaires… et des entreprises tenues par les joueurs.</p>
+      </article>
+      <article class="atout revele">
+        <span class="atout-icone">☎</span>
+        <h3>La vie civile</h3>
+        <p>Téléphone et tablette, banque et distributeurs, boutiques, garages, coffres, stations-service.</p>
+      </article>
+      <article class="atout revele">
+        <span class="atout-icone">≈</span>
+        <h3>Les activités</h3>
+        <p>Pêche avec ses cannes et sa glacière, skateboard, lavage auto… et d'autres à venir.</p>
+      </article>
+      <article class="atout revele">
+        <span class="atout-icone">◈</span>
+        <h3>Ton personnage</h3>
+        <p>Création complète, vêtements, carte d'identité et permis dans un vrai portefeuille.</p>
+      </article>
+      <article class="atout revele">
+        <span class="atout-icone">▣</span>
+        <h3>Le Mur</h3>
+        <p>La ville se joue au Sud. Le Nord est interdit… pour l'instant.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- La BD interactive -->
+  <section class="bd" id="bd">
+    <div class="bd-cadre revele">
+      <img src="images/lore/crystal.webp" alt="Un grand cristal violet émerge du cratère." loading="lazy">
+      <div class="bd-texte">
+        <p class="surtitre">Bande dessinée interactive</p>
+        <h2>Lire l'histoire depuis le début</h2>
+        <p>10 planches, 40 illustrations et 60 séquences parlées en français. Lecture guidée, au clavier ou à la souris.</p>
+        <a class="bouton" data-lien="bd" href="#" target="_blank" rel="noopener">Ouvrir la BD</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="pied">
+  <img src="images/logo-petit.webp" alt="Renaissance" width="200" height="133">
+  <p class="pied-devise">Plus qu'un jeu, une seconde vie.</p>
+  <p class="pied-mentions">Renaissance Roleplay © 2026 · Serveur FiveM non affilié à Rockstar Games ni à Take-Two Interactive.</p>
+</footer>
+
+<canvas id="braises" class="braises" aria-hidden="true"></canvas>
+<script src="app.js"></script>
+</body>
+</html>
